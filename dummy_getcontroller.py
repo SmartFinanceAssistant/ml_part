@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from fasttext_words_classifier import get_predict
 
 app = Flask(__name__)
 
@@ -6,9 +7,7 @@ app = Flask(__name__)
 @app.route('/products', methods=['GET'])
 def get_products():
     product_names = request.args.getlist('name')
-    response = {
-        'product_types': product_names
-    }
+    response = get_predict(product_names)
     return jsonify(response)
 
 
