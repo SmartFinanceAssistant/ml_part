@@ -19,9 +19,9 @@ def get_predict(words_list):
     answer_dict = dict.fromkeys(words_list, '')
     for word in words_list:
         first_predict, probability = model.predict(word)
-        if probability <= 0.4:
+        if probability <= 0.25:
             answer_dict[word] = 'Прочее'
-        elif probability > 0.4:
+        elif probability > 0.25:
             answer_dict[word] = categories[first_predict[0]]
     return answer_dict
 
@@ -29,7 +29,7 @@ def get_predict(words_list):
 def train_model():
     model = fasttext.train_supervised(
         input="data_set_fasttext.csv",
-        wordNgrams=5,
+        wordNgrams=10,
         epoch=1000,
         lr=0.1,
         loss='softmax',
